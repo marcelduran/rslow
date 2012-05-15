@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+    <head>
+        <style>
+        #gradient {
+            background-image: -webkit-gradient(
+                linear,
+                left bottom,
+                left top,
+                color-stop(0.25, #f00),
+                color-stop(0.75, #ff0)
+            );
+            height: 768px;
+            width: 1024px;
+        }
+        </style>
+    </head>
+    <body>
+
+        <div id="gradient"></div>
+
+        <script>
+        (function () {
+            var count = parseInt(sessionStorage.getItem('count') || 0, 10);
+
+            if (count < 100) {
+                sessionStorage.setItem('count', count + 1);
+                setTimeout(function () {
+                    location.reload();
+                }, 1000);
+            } else {
+                document.write('done');
+            }
+        }());
+        </script>
+    </body>
+</html>
