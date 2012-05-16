@@ -4,6 +4,15 @@ var LOGS = './logs/',
     fs = require('fs'),
     files =  fs.readdirSync(LOGS);
 
+// header
+console.log([
+    'FILE\t\t',
+    'LAYOUT',
+    'RESTYLE',
+    'PAINT',
+    'TOTAL'
+].join('\t'));
+
 files.forEach(function (file, index) {
   var content = fs.readFileSync(LOGS + file),
       log,
@@ -27,9 +36,10 @@ files.forEach(function (file, index) {
     }
   });
 
-  console.log('\nStats for', file);
-  console.log('\n  Layout\t\t', times.Layout.toFixed(2), 'ms');
-  console.log('  Recalculate Styles\t', times.RecalculateStyles.toFixed(2), 'ms');
-  console.log('  Paint\t\t\t', times.Paint.toFixed(2), 'ms\n');
-  console.log('  Total\t\t\t', (times.Layout + times.RecalculateStyles + times.Paint).toFixed(2), 'ms\n');
+  console.log([file,
+      times.Layout.toFixed(2),
+      times.RecalculateStyles.toFixed(2),
+      times.Paint.toFixed(2),
+      (times.Layout + times.RecalculateStyles + times.Paint).toFixed(2)
+  ].join('\t'));
 });
