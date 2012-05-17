@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+    <body>
+
+        <!-- Testing code goes here -->
+
+        <script>
+        (function () {
+            var count = parseInt(sessionStorage.getItem('count') || 0, 10);
+
+            if (count < 100) {
+                sessionStorage.setItem('count', count + 1);
+                setTimeout(function () {
+                    location.reload();
+                }, 1000);
+            } else {
+                document.write('done');
+            }
+        }());
+        </script>
+    </body>
+</html>
