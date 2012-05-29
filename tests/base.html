@@ -1,18 +1,26 @@
 <!doctype html>
 <html>
+    <head>
+        <!--style>
+        </style-->
+    </head>
     <body>
 
         <!-- Testing code goes here -->
 
         <script>
         (function () {
-            var count = parseInt(sessionStorage.getItem('count') || 0, 10);
+            var 
+                COUNT = 100,     // # of tests (reload)
+                INTERVAL = 1000, // ms in between tests
 
-            if (count < 100) {
+                count = parseInt(sessionStorage.getItem('count') || 1, 10);
+
+            if (count < COUNT) {
                 sessionStorage.setItem('count', count + 1);
                 setTimeout(function () {
                     location.reload();
-                }, 1000);
+                }, INTERVAL);
             } else {
                 document.write('done');
             }
