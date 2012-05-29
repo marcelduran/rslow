@@ -2,7 +2,7 @@
 
 'use strict';
 
-var noclean,
+var noclean, output,
 
     LOGS = './logs/',
 
@@ -41,20 +41,21 @@ if (args.length) {
 }
 
 // header
-console.log(
-    ['FILENAME', 'COUNT'].concat(
-        Object.keys(header).map(function (key) {
-            key = key.replace('RecalculateStyles', 'Reflow').toUpperCase();
-            return [
-                key + ' SUM',
-                key + ' MIN',
-                key + ' MAX',
-                key + ' MEDIAN',
-                key + ' AVG'
-            ].join('\t');
-        })
-    ).concat(
-        noclean ? [] : [
+output = ['FILENAME', 'COUNT'].concat(
+    Object.keys(header).map(function (key) {
+        key = key.replace('RecalculateStyles', 'Reflow').toUpperCase();
+        return [
+            key + ' SUM',
+            key + ' MIN',
+            key + ' MAX',
+            key + ' MEDIAN',
+            key + ' AVG'
+        ].join('\t');
+    })
+);
+
+if (!noclean) {
+    output = output.concat(
             'CLEAN COUNT',
             Object.keys(header).map(function (key) {
                 key = 'CLEAN ' +
@@ -67,9 +68,9 @@ console.log(
                     key + ' AVG'
                 ].join('\t');
             })
-        ]
-    ).join('\t')
-);
+    );
+}
+console.log(output.join('\t'));
 
 // loop log files
 files.forEach(function (file) {
@@ -149,30 +150,30 @@ files.forEach(function (file) {
     });
 
     // output
-    console.log(
-        [file, len].concat(
+    output = [file, len].concat(
+        Object.keys(header).map(function (key) {
+            return [
+                acc[key].toFixed(3),
+                calc[key].min.toFixed(3),
+                calc[key].max.toFixed(3),
+                calc[key].median.toFixed(3),
+                calc[key].avg.toFixed(3)
+            ].join('\t');
+        })
+    );
+    if (!noclean) {
+        output = output.concat(
+            clen,
             Object.keys(header).map(function (key) {
                 return [
-                    acc[key].toFixed(3),
-                    calc[key].min.toFixed(3),
-                    calc[key].max.toFixed(3),
-                    calc[key].median.toFixed(3),
-                    calc[key].avg.toFixed(3)
+                    calc[key].csum.toFixed(3),
+                    calc[key].cmin.toFixed(3),
+                    calc[key].cmax.toFixed(3),
+                    calc[key].cmedian.toFixed(3),
+                    calc[key].cavg.toFixed(3)
                 ].join('\t');
             })
-        ).concat(
-            noclean ? [] : [
-                clen,
-                Object.keys(header).map(function (key) {
-                    return [
-                        calc[key].csum.toFixed(3),
-                        calc[key].cmin.toFixed(3),
-                        calc[key].cmax.toFixed(3),
-                        calc[key].cmedian.toFixed(3),
-                        calc[key].cavg.toFixed(3)
-                    ].join('\t');
-                })
-            ]
-        ).join('\t')
-    );
+        );
+    }
+    console.log(output.join('\t'));
 });

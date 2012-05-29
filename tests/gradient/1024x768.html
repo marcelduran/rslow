@@ -7,8 +7,8 @@
                 linear,
                 left bottom,
                 left top,
-                color-stop(0.25, #f00),
-                color-stop(0.75, #ff0)
+                from(#f00),
+                to(#ff0)
             );
             height: 768px;
             width: 1024px;
@@ -21,13 +21,17 @@
 
         <script>
         (function () {
-            var count = parseInt(sessionStorage.getItem('count') || 0, 10);
+            var 
+                COUNT = 100,     // # of tests (reload)
+                INTERVAL = 1000, // ms in between tests
 
-            if (count < 100) {
+                count = parseInt(sessionStorage.getItem('count') || 1, 10);
+
+            if (count < COUNT) {
                 sessionStorage.setItem('count', count + 1);
                 setTimeout(function () {
                     location.reload();
-                }, 1000);
+                }, INTERVAL);
             } else {
                 document.write('done');
             }

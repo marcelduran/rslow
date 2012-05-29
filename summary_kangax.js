@@ -6,7 +6,7 @@ var LOGS = './logs/',
 
 // header
 console.log([
-    'FILE\t\t',
+    'FILE',
     'LAYOUT',
     'RESTYLE',
     'PAINT',
