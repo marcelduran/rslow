@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+    <head>
+        <style>
+            #photo {
+                background-image: url(1024x768.jpg);
+                height: 768px;
+                width: 1024px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div id="photo"></div>
+
+        <script>
+        (function () {
+            var 
+                COUNT = 100,     // # of tests (reload)
+                INTERVAL = 1000, // ms in between tests
+
+                count = parseInt(sessionStorage.getItem('count') || 1, 10);
+
+            if (count < COUNT) {
+                sessionStorage.setItem('count', count + 1);
+                setTimeout(function () {
+                    location.reload();
+                }, INTERVAL);
+            } else {
+                document.write('done');
+            }
+        }());
+        </script>
+    </body>
+</html>
