@@ -1,8 +1,12 @@
 #!/usr/bin/env node
 
-var LOGS = './logs/',
+/*jslint stupid: true*/
+
+'use strict';
+var args = process.argv.slice(2),
+    logs = args[0] || './logs/',
     fs = require('fs'),
-    files =  fs.readdirSync(LOGS);
+    files =  fs.readdirSync(logs);
 
 // header
 console.log([
@@ -14,32 +18,35 @@ console.log([
 ].join('\t'));
 
 files.forEach(function (file, index) {
-  var content = fs.readFileSync(LOGS + file),
-      log,
-      times = {
-        Layout: 0,
-        RecalculateStyles: 0,
-        Paint: 0
-      };
+    var content = fs.readFileSync(logs + file),
+        log,
+        times = {
+            Layout: 0,
+            RecalculateStyles: 0,
+            Paint: 0
+        };
 
-  try {
-    log = JSON.parse(content);
-  }
-  catch(err) {
-    console.log('Error parsing', file, ' ', err.message);
-  }
-  if (!log || !log.length) return;
-
-  log.forEach(function (item) {
-    if (item.type in times) {
-      times[item.type] += item.endTime - item.startTime;
+    try {
+        content = fs.readFileSync(logs + file);
+        log = JSON.parse(content);
+    } catch (err) {
+        console.log('Error parsing', file, ' ', err.message);
     }
-  });
+    if (!log || !log.length) {
+        return;
+    }
 
-  console.log([file,
-      times.Layout.toFixed(2),
-      times.RecalculateStyles.toFixed(2),
-      times.Paint.toFixed(2),
-      (times.Layout + times.RecalculateStyles + times.Paint).toFixed(2)
-  ].join('\t'));
+    log.forEach(function (item) {
+        if (times.hasOwnProperty(item.type)) {
+            times[item.type] += item.endTime - item.startTime;
+        }
+    });
+
+    console.log([
+        file,
+        times.Layout.toFixed(2),
+        times.RecalculateStyles.toFixed(2),
+        times.Paint.toFixed(2),
+        (times.Layout + times.RecalculateStyles + times.Paint).toFixed(2)
+    ].join('\t'));
 });

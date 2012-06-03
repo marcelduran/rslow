@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+    <head>
+        <style>
+            #dump {
+                font-family: monospace;
+                height: 40em;
+                width: 90%;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <button id="fetch">fetch localStorage</button>
+            <button id="clear">clear localStorage</button>
+        </div>
+        <textarea id="dump"></textarea>
+        <script>
+            (function (doc) {
+                var fetch,
+                    ls = localStorage;
+
+                fetch = function () {
+                    var i, key, obj,
+                        len = ls.length,
+                        res = [];
+
+                    for (i = 0; i < len; i += 1) {
+                        obj = {};
+                        key = ls.key(i);
+                        obj[key] = ls.getItem(key).split(',').map(function (n) {
+                            return parseInt(n, 10);
+                        });
+                        res.push(obj);
+                    }
+                    doc.getElementById('dump').value = res.length
+                        ? JSON.stringify(res, null, 4) : '';
+                };
+
+                doc.getElementById('fetch').onclick = function () {
+                    fetch();
+                };
+
+                doc.getElementById('clear').onclick = function () {
+                    if (confirm('Are you sure?')) {
+                        ls.clear();
+                        fetch();
+                    }
+                };
+
+                fetch();
+            }(document));
+        </script>
+    </body>
+</html>

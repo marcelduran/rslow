@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 
+/*jslint stupid: true*/
+
 'use strict';
 
 var noclean, output,
 
-    LOGS = './logs/',
-
     fs = require('fs'),
-    files =  fs.readdirSync(LOGS),
     args = process.argv.slice(2),
+    logs = args[0],
+    files =  fs.readdirSync(logs),
 
     header = {
         'Layout': 1,
@@ -23,6 +24,8 @@ var noclean, output,
             return a[k] < b[k] ? -1 : a[k] > b[k] ? 1 : 0;
         };
     };
+
+args = args.slice(1);
 
 // check for "noclean"
 if (args.indexOf('noclean') > -1) {
@@ -56,29 +59,26 @@ output = ['FILENAME', 'COUNT'].concat(
 
 if (!noclean) {
     output = output.concat(
-            'CLEAN COUNT',
-            Object.keys(header).map(function (key) {
-                key = 'CLEAN ' +
-                    key.replace('RecalculateStyles', 'Reflow').toUpperCase();
-                return [
-                    key + ' SUM',
-                    key + ' MIN',
-                    key + ' MAX',
-                    key + ' MEDIAN',
-                    key + ' AVG'
-                ].join('\t');
-            })
+        'CLEAN COUNT',
+        Object.keys(header).map(function (key) {
+            key = 'CLEAN ' +
+                key.replace('RecalculateStyles', 'Reflow').toUpperCase();
+            return [
+                key + ' SUM',
+                key + ' MIN',
+                key + ' MAX',
+                key + ' MEDIAN',
+                key + ' AVG'
+            ].join('\t');
+        })
     );
 }
 console.log(output.join('\t'));
 
 // loop log files
 files.forEach(function (file) {
-    var
+    var content, log, len,
         clen, lower, upper,
-        content = fs.readFileSync(LOGS + file),
-        log = JSON.parse(content),
-        len = log.length,
         render = [],
         time = {
             'Layout': 0,
@@ -98,6 +98,17 @@ files.forEach(function (file) {
             'Paint': {},
             'Total': {}
         };
+
+    try {
+        content = fs.readFileSync(logs + file);
+        log = JSON.parse(content);
+        len = log.length;
+    } catch (err) {
+        console.log('Error parsing', file, ' ', err.message);
+    }
+    if (!log || !log.length) {
+        return;
+    }
 
     // loop logs
     log.forEach(function (item, index) {
