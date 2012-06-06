@@ -11,7 +11,7 @@
         pathname = win.location.pathname,
 
         SCROLL_STEP = 45, // the larger the faster
-        COUNT = 100,      // # of tests (reload)
+        COUNT = 2,      // # of tests (reload)
         INTERVAL = 1000;  // ms in between tests
 
     /* polyfills */
@@ -42,9 +42,11 @@
 
     end = function () {
         var count,
-            endTime = win.performance.now
-                ? (performance.now() + performance.timing.navigationStart)
+            endTime = win.performance && win.performance.webkitNow
+                ? (win.performance.webkitNow() + performance.timing.navigationStart)
                 : Date.now();
+        alert(endTime)
+        alert(endTime - startTime)
         pushResult(endTime - startTime);
 
         // reload
@@ -86,8 +88,8 @@
 
     // http://updates.html5rocks.com/2012/05/requestAnimationFrame-API-
     // now-with-sub-millisecond-precision
-    startTime = win.performance && win.performance.now
-        ? (performance.now() + performance.timing.navigationStart)
+    startTime = win.performance && win.performance.webkitNow
+        ? (performance.webkitNow() + performance.timing.navigationStart)
         : Date.now();
 
     fullScroll();
