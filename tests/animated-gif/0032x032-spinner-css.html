@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+    <head>
+        <style>
+            .spinner{
+                position: relative;
+                display: inline-block;
+                -webkit-animation: spin 1s linear infinite;
+                   -moz-animation: spin 1s linear infinite;
+                -webkit-transform-origin: center center;
+                -webkit-transform: rotate(0deg);
+            }
+
+            .spinner div{
+                position: absolute;
+                width: 50%;
+                height: 0;
+                top: 50%;
+                left: 50%;
+                -webkit-transform-origin: center left;
+                opacity: 0;
+            }
+
+            .spinner div:after{
+                content: '';
+                display: block;
+                width: 50%;
+                height: 3px;
+                background: black;
+                x-webkit-border-radius: 50px;
+                -webkit-box-shadow: 0 0 1px rgba(0,0,0,0.2);
+                x-moz-border-radius: 50px;
+                -moz-box-shadow: 0 0 3px rgba(0,0,0,0.2);
+                x-ms-border-radius: 50px;
+                x-ms-box-shadow: 0 0 3px rgba(0,0,0,0.2);
+                position: absolute;
+                left: 50%;
+                top: -1.5px;
+            }
+
+            @-webkit-keyframes spin{
+                0%{-webkit-transform:rotate(0deg)}
+                8.3332%{-webkit-transform:rotate(0deg)}
+                8.3333%{-webkit-transform:rotate(30deg)}
+                16.6665%{-webkit-transform:rotate(30deg)}
+                16.6666%{-webkit-transform:rotate(60deg)}
+                23.9999%{-webkit-transform:rotate(60deg)}
+                24%{-webkit-transform:rotate(90deg)}
+                32.3332%{-webkit-transform:rotate(90deg)}
+                32.3333%{-webkit-transform:rotate(120deg)}
+                41.6665%{-webkit-transform:rotate(120deg)}
+                41.6666%{-webkit-transform:rotate(150deg)}
+                49.9999%{-webkit-transform:rotate(150deg)}
+                50%{-webkit-transform:rotate(180deg)}
+                58.3332%{-webkit-transform:rotate(180deg)}
+                58.3333%{-webkit-transform:rotate(210deg)}
+                66.6665%{-webkit-transform:rotate(210deg)}
+                66.6666%{-webkit-transform:rotate(240deg)}
+                74.9999%{-webkit-transform:rotate(240deg)}
+                75%{-webkit-transform:rotate(270deg)}
+                83.3332%{-webkit-transform:rotate(270deg)}
+                83.3333%{-webkit-transform:rotate(300deg)}
+                91.6665%{-webkit-transform:rotate(300deg)}
+                91.6666%{-webkit-transform:rotate(330deg)}
+                99.9999%{-webkit-transform:rotate(330deg)}
+                100%{-webkit-transform:rotate(0deg)}
+            }
+
+            .spinner div:nth-child(1){-webkit-transform:rotate(0deg);opacity:1}
+            .spinner div:nth-child(1):after{opacity:1}
+            .spinner div:nth-child(2){-webkit-transform:rotate(30deg);opacity:.93}
+            .spinner div:nth-child(2):after{opacity:.93}
+            .spinner div:nth-child(3){-webkit-transform:rotate(60deg);opacity:.86}
+            .spinner div:nth-child(3):after{opacity:.86}
+            .spinner div:nth-child(4){-webkit-transform:rotate(90deg);opacity:.79}
+            .spinner div:nth-child(4):after{opacity:.79}
+            .spinner div:nth-child(5){-webkit-transform:rotate(120deg);opacity:.73}
+            .spinner div:nth-child(5):after{opacity:.73}
+            .spinner div:nth-child(6){-webkit-transform:rotate(150deg);opacity:.66}
+            .spinner div:nth-child(6):after{opacity:.66}
+            .spinner div:nth-child(7){-webkit-transform:rotate(180deg);opacity:.59}
+            .spinner div:nth-child(7):after{opacity:.59}
+            .spinner div:nth-child(8){-webkit-transform:rotate(210deg);opacity:.52}
+            .spinner div:nth-child(8):after{opacity:.52}
+            .spinner div:nth-child(9){-webkit-transform:rotate(240deg);opacity:.45}
+            .spinner div:nth-child(9):after{opacity:.45}
+            .spinner div:nth-child(10){-webkit-transform:rotate(270deg);opacity:.39}
+            .spinner div:nth-child(10):after{opacity:.39}
+            .spinner div:nth-child(11){-webkit-transform:rotate(300deg);opacity:.32}
+            .spinner div:nth-child(11):after{opacity:.32}
+            .spinner div:nth-child(12){-webkit-transform:rotate(330deg);opacity:.25}
+            .spinner div:nth-child(12):after{opacity:.25}
+        </style>
+    </head>
+    <body>
+
+        <div id="spinner" class="spin"></div>
+
+        <div style="width: 32px; height: 32px;" class="spinner">
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        </div>
+
+        <script src="../reload.js"></script>
+    </body>
+</html>
