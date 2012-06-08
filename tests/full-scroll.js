@@ -45,8 +45,6 @@
             endTime = win.performance && win.performance.webkitNow
                 ? (win.performance.webkitNow() + performance.timing.navigationStart)
                 : Date.now();
-        alert(endTime)
-        alert(endTime - startTime)
         pushResult(endTime - startTime);
 
         // reload
