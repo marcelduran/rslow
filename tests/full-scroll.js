@@ -28,6 +28,13 @@
             };
     }());
 
+    // Date.now polyfill
+    if(!Date.now) {
+        Date.now = function(){
+            return new Date().getTime();
+        }
+    }
+
     pushResult = function (result) {
         var res = sessionStorage.getItem(pathname);
 
@@ -45,8 +52,6 @@
             endTime = win.performance && win.performance.webkitNow
                 ? (win.performance.webkitNow() + performance.timing.navigationStart)
                 : Date.now();
-        alert(endTime)
-        alert(endTime - startTime)
         pushResult(endTime - startTime);
 
         // reload
@@ -89,7 +94,7 @@
     // http://updates.html5rocks.com/2012/05/requestAnimationFrame-API-
     // now-with-sub-millisecond-precision
     startTime = win.performance && win.performance.webkitNow
-        ? (performance.webkitNow() + performance.timing.navigationStart)
+        ? (win.performance.webkitNow() + win.performance.timing.navigationStart)
         : Date.now();
 
     fullScroll();
