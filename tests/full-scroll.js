@@ -12,7 +12,7 @@
 
         SCROLL_STEP = 45, // the larger the faster
         COUNT = 100,      // # of tests (reload)
-        INTERVAL = 1000;  // ms in between tests
+        INTERVAL = 0;  // ms in between tests
 
     /* polyfills */
     // shim layer with setTimeout fallback:
@@ -29,10 +29,10 @@
     }());
 
     // Date.now polyfill
-    if(!Date.now) {
-        Date.now = function(){
+    if (!Date.now) {
+        Date.now = function () {
             return new Date().getTime();
-        }
+        };
     }
 
     pushResult = function (result) {
